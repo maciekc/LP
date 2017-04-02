@@ -1,7 +1,7 @@
 function [ dx ] = suwnica(x, U)
 
-    lin = 1;
-    global xs sy mw ms mc Rn g
+    
+    global xs sy mw ms mc Rn g lin
     
     %global xs sy mw ms mc Rn g
     
@@ -10,20 +10,26 @@ function [ dx ] = suwnica(x, U)
     k2 = 100;%75;
     k3 = 75;%75;
     %si³y tarcia
-    if x(2) >= 0 
+    if x(2) > 0 
         Tx = k1*mw*x(2) + 7.5;%10;
-    else
+    elseif x(2) < 0
         Tx = k1*mw*x(2) - 7.5;%10;
+    else
+        Tx = 0;
     end
-    if x(4) >= 0 
+    if x(4) > 0 
         Ty = k2*(mw+ms)*x(4) + 5;%22;
-    else
+    elseif x(4) < 0
         Ty = k2*(mw+ms)*x(4) - 5;%22;
-    end
-    if x(10) >= 0
-        Tr = -g*mc - x(10) * k3;%142;
     else
+        Ty = 0;
+    end
+    if x(10) > 0
+        Tr = -g*mc - x(10) * k3;%142;
+    elseif x(10) < 0 
         Tr = g*mc - x(10) * k3;%218;
+    else
+        Tr = g*mc;
     end
     %Tr = k3*mc*x(10);
     
@@ -32,9 +38,18 @@ function [ dx ] = suwnica(x, U)
     T3 = Tr/mc;
     
     u = U * Rn;
-    N1 = u(1) - T1;
-    N2 = u(2) - T2;
-    N3 = u(3) - T3;
+    if(abs(u(1)) < abs(T1))
+        N1 = 0;
+    else
+        N1 = u(1) - T1;
+    end
+    if(abs(u(2)) < abs(T2))
+        N2 = 0;
+    else
+        N2 = u(2) - T2;
+    end
+    %N2 = u(2) - T2;
+    N3 = u(3) - T3; 
     
     ni1 = mc/mw;
     ni2 = mc/(mw + ms);
@@ -70,5 +85,5 @@ function [ dx ] = suwnica(x, U)
         dx(9) = x(10);
         dx(10) = -cos(x(5))*N1 - sin(x(5))*sin(x(7))*N2 -(1+ni1*(cos(x(5)))^2+ni2*(sin(x(5)))^2*(sin(x(7)))^2)*N3+V7;
      end
-    dx
+   
 end

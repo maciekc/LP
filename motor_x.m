@@ -20,7 +20,7 @@ function [ dx ] = motor_x(x, u, aw)
     
     M = mw + mc;
     
-    dw = (Km * i - aw * M * Rn /p - 0.001* w) / J;
+    dw = (Km * i - aw * M * Rn /p - 0* w) / J;
     di = (u - R*i - Ke * w) / L;
 
     dx = [dw, di];
