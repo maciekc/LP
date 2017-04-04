@@ -1,2 +1,3 @@
 slprj/*
-*.autosave
+modele_mat/*.autosave
+pomiary_iden/*.autosave

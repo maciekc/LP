@@ -3,7 +3,7 @@ clear all
 
 global U1 uxc uyc;
 
-global xs sy mw ms mc Rn g x0 p lin
+global xs sy mw ms mc Rn g x0 p lin limit
 %dane modelu str. 84
 xs = 1.5;   % szerokoœæ suwnicy
 sy = 2.5;   % d³ suwnicy
@@ -13,13 +13,35 @@ mc = 1;     % masa ciê¿arka
 Rn = 0.0185;% promien bloków napedzajacych
 g = 9.81;
 p = 60;
+limit = 20;
 lin = 1;
 if(lin ~= 1)
     x0 = [0   0   0    0   pi/2   0    0   0   0.15   0]';
 else
     x0 = [0   0   0    0   0   0    0   0   0.15   0]';
 end
+
 %%
+%--------------------------------------------------------------------------
+%optymalizacja
+X0 = [200, 0.01, 20, 100, 10];
+     Px = X0(1);
+     Ix = X0(2);
+     Dx = X0(3);
+     Pa = X0(4);
+     Da = X0(5);
+     %%
+A = [-1 0 0 0 0;
+     0 -1 0 0 0;
+     0 0 -1 0 0;
+     0 0 0 -1 0;
+     0 0 0 0 -1;];
+ B = [0 0 0 0 0]';
+options = optimoptions(@fmincon,'Display','iter','MaxIterations',50);
+wynik = fmincon(@cel, X0, A, B,[],[],[],[],[], options)
+
+%%
+%--------------------------------------------------------------------------
 %maksymalny czas
 T = 10;
 %warunki pocz¹tkowe

@@ -37,17 +37,22 @@ function [ dx ] = suwnica(x, U)
     T2 = Ty/(mw+mc);
     T3 = Tr/mc;
     
-    u = U * Rn;
-    if(abs(u(1)) < abs(T1))
-        N1 = 0;
-    else
-        N1 = u(1) - T1;
-    end
-    if(abs(u(2)) < abs(T2))
-        N2 = 0;
-    else
-        N2 = u(2) - T2;
-    end
+    u = U / Rn;
+%     if u > 5
+%         u = 5;
+%     else
+%         u = u*5;
+%     end
+%     if(abs(u(1)) < abs(T1))% && x(2) == 0)
+%         N1 = 0;
+%     else
+         N1 = u(1) - T1;
+%      end
+%      if(abs(u(2)) < abs(T2))% && x(4) == 0)
+%          N2 = 0;
+%      else
+         N2 = u(2) - T2;
+%      end
     %N2 = u(2) - T2;
     N3 = u(3) - T3; 
     
