@@ -1,41 +1,50 @@
 close all
-% data1 = load('To001')
-% 
-% figure(1)
-% subplot(311)
-% title('To = 0.001')
-% plot(data1.EX1.time, data1.EX1.signals.values(:,3)) 
-% 
-% data2 = load('To01')
-% subplot(312)
-% title('To = 0.01')
-% plot(data2.EX1.time, data2.EX1.signals.values(:,3)) 
-% 
-% 
-% data3 = load('To05')
-% subplot(313)
-% title('To = 0.05')
-% plot(data3.EX1.time, data3.EX1.signals.values(:,3)) 
+
+%---------------------------------------------------------------------
+% rysowanie tarcia
+
+sim('zadana');
+
 data1 = load('tarcie_y+.mat')
-data2 = load('tarcie_y+.mat')
+data2 = load('tarcie_y-.mat')
 
-v1 = data1.EX1.signals.values(:,1) - data1.EX1.signals.values(1,1);
+v1 = data1.EX1.signals.values(:,2) - data1.EX1.signals.values(1,2);
 
 
-v2 = data2.EX1.signals.values(1,1) - data2.EX1.signals.values(:,1);
+v2 = data2.EX1.signals.values(1,2) - data2.EX1.signals.values(:,2);
 %v2(2587:end) = v2(2586);
 v2(2500:end) = v2(2499);
+
 figure(1)
+subplot(211)
 hold on
-
-plot(data1.EX1.time, v1) 
-plot(data2.EX1.time, v2, 'r') 
-legend('x+','x-')
 grid on
-
+yyaxis left
+ylabel('y_w [m]')
+plot(data1.EX1.time, v1)
+yyaxis right
+plot(ramp.Time, ramp.Data,'r')
+legend('y+','U')
 xlabel('czas [s]')
-ylabel('xw [m]')
+ylabel('U [PWM]')
+xlim([0 20])
 
+% axis([0 30 -0.1 0.6]);
+
+subplot(212)
+hold on
+grid on
+yyaxis left
+ylabel('y_w [m]')
+plot(data2.EX1.time, -v2)
+yyaxis right
+ylim([-0.2 0])
+plot(ramp.Time, -ramp.Data, 'r')
+legend('y-', 'U')
+xlabel('czas [s]')
+ylabel('U [PWM]')
+xlim([0 20])
+% axis([0 30 -0.6 0.1]);
 
 %%
 figure(2)
@@ -60,57 +69,6 @@ grid on
 xlabel('czas [s]')
 ylabel('\beta [rad]')
 
-%%
-%--------------------------------------------------------------------------
-%predkosci
-t = data1.EX1.time;
-x = data1.EX1.signals.values(:,1);
-y = data1.EX1.signals.values(:,2);
-
-vx = zeros(1,length(x));
-vy = zeros(1,length(y));
-
-dt = t(2) - t(1);
-for i =2:1:length(x)
-   vx(i) = (x(i) - x(i-1)) / dt ;
-   vy(i) = (y(i) - y(i-1)) / dt ; 
-end
-
-% filtrowanie
-windowSize = 30;
-b = (1/windowSize)*ones(1,windowSize);
-a = 1;
-vx_f = filter(b,a,vx);
-vy_f = filter(b,a,vy);
-
-
-figure(2)
-subplot(211)
-plot(t,vx)
-grid on
-xlabel('czas [s]')
-ylabel('V_x [m/s]')
-
-subplot(212)
-plot(t, vy)
-grid on
-xlabel('czas [s]')
-ylabel('V_y [m/s]')
-
-
-
-figure(3)
-subplot(211)
-plot(t,vx_f)
-grid on
-xlabel('czas [s]')
-ylabel('V_x [m/s]')
-
-subplot(212)
-plot(t, vy_f)
-grid on
-xlabel('czas [s]')
-ylabel('V_y [m/s]')
 %%
 %---------------------------------------------------------------------
 %przebiegi symulacja tylko suwnica
@@ -195,7 +153,7 @@ grid on
 xlabel('czas [s]');
 ylabel('sterowanie [m/s^2]');
 legend('z t³umieniem','bez t³umienia', 'Location','best');
-print('D:/studia/IV_rok/sem_8/PROBLEEMOWE/sprawozdanie/fig/wsp_suwnica_lin','-depsc')
+%print('D:/studia/IV_rok/sem_8/PROBLEEMOWE/sprawozdanie/fig/wsp_suwnica_lin','-depsc')
 
 %------------------------------------------------------------------
 %katy
@@ -216,7 +174,7 @@ grid on
 xlabel('czas [s]');
 ylabel('sterowanie [m/s^2]');
 legend('z t³umieniem','bez t³umienia', 'Location','northeast');
-print('D:/studia/IV_rok/sem_8/PROBLEEMOWE/sprawozdanie/fig/katy_suwnica_lin','-depsc')
+%print('D:/studia/IV_rok/sem_8/PROBLEEMOWE/sprawozdanie/fig/katy_suwnica_lin','-depsc')
 
 
 

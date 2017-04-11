@@ -3,7 +3,11 @@ function [ dx ] = suwnica2(x, u)
     
     global xs sy mw ms mc Rn g lin
     
-    N1 = u(1);
+    %if u(1) < 0.06
+    %    N1 = 0;
+    %else
+        N1 = u(1);
+    %end
     N2 = u(2);
     N3 = g; 
     

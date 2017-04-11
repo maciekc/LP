@@ -7,7 +7,7 @@ global xs sy mw ms mc Rn g x0 p lin limit
 %dane modelu str. 84
 xs = 1.5;   % szerokoœæ suwnicy
 sy = 2.5;   % d³ suwnicy
-mw = 1.155;%2.49;  % masa wózka
+mw = 2.49;%1.155;%2.49;  % masa wózka
 ms = 2.2;%4.09;  % masa szyny
 mc = 1;     % masa ciê¿arka
 Rn = 0.0185;% promien bloków napedzajacych
