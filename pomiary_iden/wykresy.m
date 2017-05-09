@@ -5,13 +5,17 @@ close all
 
 sim('zadana');
 
-data1 = load('tarcie_y+.mat')
-data2 = load('tarcie_y-.mat')
+% data1 = load('tarcie_y+.mat')
+% data2 = load('tarcie_y-.mat')
+data1 = load('tarcie_x.mat')
+data2 = load('tarcie_x-.mat')
 
-v1 = data1.EX1.signals.values(:,2) - data1.EX1.signals.values(1,2);
+% v1 = data1.EX1.signals.values(:,2) - data1.EX1.signals.values(1,2);
+% v2 = data2.EX1.signals.values(1,2) - data2.EX1.signals.values(:,2);
 
+v1 = data1.EX1.signals.values(:,1) - data1.EX1.signals.values(1,1);
+v2 = data2.EX1.signals.values(1,1) - data2.EX1.signals.values(:,1);
 
-v2 = data2.EX1.signals.values(1,2) - data2.EX1.signals.values(:,2);
 %v2(2587:end) = v2(2586);
 v2(2500:end) = v2(2499);
 
