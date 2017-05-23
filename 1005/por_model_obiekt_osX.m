@@ -23,10 +23,11 @@ C = [1 0];
 D = 0;
 
 % pol_x = load('pomiary\osX_bez_t.mat');
-pol_x = load('reg_x_50_tlumienie.mat');
+%pol_x = load('reg_x_50_tlumienie.mat');
 % pol_x = load('reg_x_50.mat');
 
 sim('poprawiony_model_all_X2014',30);
+
 %%
 figure(876)
 hold on

@@ -1,5 +1,5 @@
 close all
-clear all
+%clear all
 
 global U1 uxc uyc;
 
@@ -23,7 +23,7 @@ end
 
 Tk = 6;
 
-reg_PD = 0*-1; %w³¹czone -1 /wy³¹czone t³umienie
+reg_PD = -1; %w³¹czone -1 /wy³¹czone t³umienie
 
 Pdy = 10;
 Dy = 0.01;

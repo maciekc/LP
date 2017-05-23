@@ -1,7 +1,7 @@
 dane
 clc
 
-load('os_y.mat')
+% load('os_y.mat')
 %dane dla osi X
 % Km = 0.3309;
 % T = 0.0471;
@@ -73,26 +73,32 @@ Q0 = [10 1 100 1 1];
 % wynik = fmincon(@cel, Q0, Amin, Bmin,[],[],[],[],[], options);
 
 %%
-wynik
+wynik = [3.9822 3.014 100.247 0.8601 11.7425];
 % 100*ex + 10000*ealpha
 Q = [wynik(1) 0 0 0;
      0  wynik(2) 0 0;
      0  0 wynik(3) 0;
      0  0 0 wynik(4)];
 R = wynik(5);
-Klqr = lqr(Al,Bl,Q,R);
-for i =1:4
-    if Klqr(i) < 0
-        Klqr(i) = -Klqr(i);
-    end
-end
-Klqr
-sim('reg_lqr2',30)
+Klqr = lqr(Al,Bl,Q,R)
+% for i =1:4
+%     if Klqr(i) < 0
+%         Klqr(i) = -Klqr(i);
+%     end
+% end
+% Klqr = [0.58232
+% 0.1233
+% 3.0552
+% 0.526]';
+% sim('reg_lqr2',30)
+
 %%
-Q = [10 0 0 0;
-     0  1 0 0;
+wynik = [3.9822 3.014 100.247 0.8601 11.7425];
+% 100*ex + 10000*ealpha
+Q = [100 0 0 0;
+     0  0 0 0;
      0  0 1 0;
-     0  0 0 1];
+     0  0 0 0];
 R = 1;
 Klqr = lqr(Al,Bl,Q,R);
 % for i =1:4
@@ -100,8 +106,8 @@ Klqr = lqr(Al,Bl,Q,R);
 %         Klqr(i) = -Klqr(i);
 %     end
 % end
-Klqr
-sim('reg_lqr2',30)
+Klqr 
+
 %%
 % close all
 % 
